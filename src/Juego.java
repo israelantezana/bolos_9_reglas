@@ -1,14 +1,13 @@
 
+
 public class Juego {
 
-	private int lanzamientos[] = new int[21];
-	private int lanzamientoActual = 0;
+	private Lanzamientos lanzamientos = new Lanzamientos();
 	private int total;
 	private int indexFrame;
 
 	public void lanzar(int pinos) {
-		lanzamientos[lanzamientoActual] = pinos;
-		lanzamientoActual++;		
+		lanzamientos.add(pinos);
 	}
 
 	public int puntaje() {
@@ -21,37 +20,17 @@ public class Juego {
 	}
 
 	private void calcularPuntajeParaFrame() {
-		if (esStrike(indexFrame)) { 
-			total += 10 + bonoStrike(indexFrame);
+		if (lanzamientos.esStrike(indexFrame)) { 
+			total += 10 + lanzamientos.bonoStrike(indexFrame);
 			indexFrame++;
 			return;
 		}
-		if (esSpare(indexFrame)) {
-			total += 10 + bonoSpare(indexFrame);
+		if (lanzamientos.esSpare(indexFrame)) {
+			total += 10 + lanzamientos.bonoSpare(indexFrame);
 			indexFrame += 2;
 			return;
 		} 	
-		total += sumaDeDosLanzamientos(indexFrame);
+		total += lanzamientos.sumaDeDosLanzamientos(indexFrame);
 		indexFrame += 2;
-	}
-	
-	private boolean esStrike(int indexFrame) {
-		return lanzamientos[indexFrame] == 10;
-	}
-
-	private int bonoStrike(int indexFrame) {
-		return lanzamientos[indexFrame + 1] + bonoSpare(indexFrame);
-	}
-
-	private boolean esSpare(int indexFrame) {
-		return sumaDeDosLanzamientos(indexFrame) == 10;
-	}
-	
-	private int bonoSpare(int indexFrame) {
-		return lanzamientos[indexFrame + 2];
-	}
-
-	private int sumaDeDosLanzamientos(int indexFrame) {
-		return lanzamientos[indexFrame] + lanzamientos[indexFrame + 1];
 	}
 }
