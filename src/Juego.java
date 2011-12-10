@@ -3,6 +3,8 @@ public class Juego {
 
 	private int lanzamientos[] = new int[21];
 	private int lanzamientoActual = 0;
+	private int total;
+	private int indexFrame;
 
 	public void lanzar(int pinos) {
 		lanzamientos[lanzamientoActual] = pinos;
@@ -10,22 +12,27 @@ public class Juego {
 	}
 
 	public int puntaje() {
-		int total = 0;
-		int indexFrame = 0;
+		total = 0;
+		indexFrame = 0;
 		for (int frame = 0; frame < 10; frame++) {
-			if (esStrike(indexFrame)) { 
-				total += 10 + bonoStrike(indexFrame);
-				indexFrame++;
-			}
-			else {
-				if (esSpare(indexFrame)) {
-					total += 10 + bonoSpare(indexFrame);
-				} else
-					total += sumaDeDosLanzamientos(indexFrame);
-				indexFrame += 2;
-			}
+			calcularPuntajeParaFrame();
 		}
 		return total;
+	}
+
+	private void calcularPuntajeParaFrame() {
+		if (esStrike(indexFrame)) { 
+			total += 10 + bonoStrike(indexFrame);
+			indexFrame++;
+			return;
+		}
+		if (esSpare(indexFrame)) {
+			total += 10 + bonoSpare(indexFrame);
+			indexFrame += 2;
+			return;
+		} 	
+		total += sumaDeDosLanzamientos(indexFrame);
+		indexFrame += 2;
 	}
 	
 	private boolean esStrike(int indexFrame) {
