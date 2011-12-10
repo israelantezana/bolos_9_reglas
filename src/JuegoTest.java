@@ -1,8 +1,5 @@
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
-
 
 public class JuegoTest {
 	Juego juego = new Juego();
@@ -29,16 +26,20 @@ public class JuegoTest {
 
 	@Test
 	public void variosLanzamientosConUnStrike() throws Exception {
-		juego.lanzar(10);
+		lanzarStrike();
 		juego.lanzar(3);
 		juego.lanzar(4);
 		lanzarVarios(17, 0);
 		assertEquals(24, juego.puntaje());
 	}
+
+	private void lanzarStrike() {
+		juego.lanzar(10);
+	}
 	
 	@Test
 	public void juegoPerfecto() throws Exception {
-		lanzarVarios(20, 10);
+		lanzarVarios(12, 10);
 		assertEquals(300, juego.puntaje());
 	}
 
