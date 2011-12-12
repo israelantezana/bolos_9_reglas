@@ -20,7 +20,7 @@ public class Juego {
 	}
 
 	private void calcularPuntajeParaFrame() {
-		if (lanzamientos.esStrike(indexFrame)) { 
+		if (lanzamientos.get(indexFrame).esStrike()) { 
 			total += 10 + lanzamientos.bonoStrike(indexFrame);
 			indexFrame++;
 			return;
@@ -30,7 +30,7 @@ public class Juego {
 			indexFrame += 2;
 			return;
 		} 	
-		total += lanzamientos.sumaDeDosLanzamientos(indexFrame);
+		total += lanzamientos.sumaDeDosLanzamientos(indexFrame).getPinosDerribados();
 		indexFrame += 2;
 	}
 }
